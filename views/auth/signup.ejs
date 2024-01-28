@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../templates/head') %>
+    <link rel="stylesheet" href="/auth/signup.css">
+</head>
+<body>
+    <%- include('../templates/nav') %>
+    <form class="signup-form" action="signup" method="POST">
+        <h2>Create an account</h2>
+        <div class="form-group">
+            <input autofocus type="text" class="form-control" placeholder="Enter username" name="username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Enter password" name="password">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Confirm password" name="confirmation">
+        </div>
+        <button type="submit" class="btn btn-success signup-btn">Register</button>
+    </form>
+
+    <%- include('../templates/footer') %>
+</body>
+</html>

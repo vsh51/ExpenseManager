@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./templates/head') %>
+    <link rel="stylesheet" href="/account.css">
+</head>
+<body>
+    <%- include('./templates/nav') %>
+
+    <div class="account-info">
+        <div class="wrapper">
+            <div id="liveAlertPlaceholder"></div>
+            <form id="change_pwd">
+                <h3 style="text-align: center; margin-top: 5rem;">Account settings</h3>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Old password</label>
+                    <input type="password" class="form-control" id="p1" placeholder="Enter password"
+                        name="oldPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">New password</label>
+                    <input type="password" class="form-control" id="p2" placeholder="Enter password"
+                        name="newPassword" required>
+                    <input type="password" class="form-control" id="p3" placeholder="Confirm password"
+                        name="confirmation" required>
+                </div>
+
+                <button type="submit" class="btn btn-outline-success">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <% if(session.user) { %>
+        <script src="/js/add_settings_links.js"></script>
+    <% } %>
+
+    <%- include('./templates/footer') %>
+
+    <script>
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+        const appendAlert = (message, type) => {
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible fade show" role="alert">`,
+                `   <div>${message}</div>`,
+                '</div>'
+            ].join('');
+
+            alertPlaceholder.append(wrapper);
+        }
+
+        const change_pwd = document.querySelector('#change_pwd');
+        change_pwd.addEventListener('submit', (e) => {
+            e.preventDefault();
+            e.target.disabled = true;
+
+            const formData = new FormData(change_pwd);
+            const formDataObj = Object.fromEntries(formData.entries());
+
+            console.log(formDataObj)
+            fetch('/settings/account_settings', {
+                method: "PATCH",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(formDataObj)
+            })
+            .then((response) => {
+                response.json()
+                .then((result) => {
+                    if (result.status === "updated") {
+                        appendAlert('Password changed successfully', 'success');
+                    }
+                    else {
+                        appendAlert('Failed to change the password', 'danger');
+                    }
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                })
+            })
+        })
+    </script>
+</body>
+</html>

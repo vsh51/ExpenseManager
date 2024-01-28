@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  node-app:
+    build: .
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PWD: ${DB_PWD}
+      NA_PORT: ${NA_PORT}
+    ports:
+      - 3000:3000
+    links:
+      - mongo
+    volumes:
+      - ./:/app
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PWD}
+      MONGO_INITDB_DATABASE: production
+    ports:
+      - 27017:27017
+    volumes:
+      - ./001_users.js:/docker-entrypoint-initdb.d/001_users.js:ro
+      - ./data/db:/data/db

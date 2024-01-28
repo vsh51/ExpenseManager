@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../templates/head') %>
+    <link rel="stylesheet" href="/auth/signin.css">
+</head>
+<body>
+    <%- include('../templates/nav') %>
+    <form class="signin-form" action="signin" method="POST">
+        <h2>Sign in an account</h2>
+        <div class="form-group">
+            <input autofocus type="text" class="form-control" placeholder="username" name="username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-success signin-btn">Sign In</button>
+    </form>
+    <%- include('../templates/footer') %>
+</body>
+</html>

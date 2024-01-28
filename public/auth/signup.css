@@ -1,0 +1,33 @@
+.signup-form {
+    width: 70%;
+    max-width: 700px;
+    margin: auto;
+    margin-top: 5rem;
+}
+
+h2 {
+    margin-bottom: 1em;
+}
+
+.form-group:nth-child(3) {
+    margin-top: 1.5em;
+}
+
+.form-group:nth-child(4) {
+    margin-top: 0.5em;
+}
+
+.signup-btn {
+    margin-top: 1.5em;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 400px) {
+    .signup-form {
+        width: 80%;
+    }
+    .signup-btn {
+        width: 35%;
+    }
+}

@@ -1,0 +1,57 @@
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+    border-color: rgba(126, 239, 104, 0.8);
+    box-shadow: 0 1px 1px rgba(50, 168, 82, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+    outline: 0 none;
+}
+
+.wrapper {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 2.5rem;
+}
+
+.so:hover {
+    cursor: pointer;
+}
+
+.title {
+    position: relative;
+    width: fit-content;
+}
+
+.title::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 105%;
+    margin: 0 auto;
+    transform: translate(-1.75%, -50%);
+    top: 115%;
+    background-color: #32a852;
+    border-radius: 30%;
+}
+
+a {
+    color: black;
+}
+
+@media (max-width: 500px) {
+    .wrapper {
+        width: 90%;
+    }
+}

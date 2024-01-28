@@ -1,0 +1,4 @@
+.trans-item::before {
+    content: "•";
+    padding: 1rem;
+}

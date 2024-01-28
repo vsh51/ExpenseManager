@@ -1,0 +1,232 @@
+.wrapper {
+    min-height: 68vh;
+    margin-top: 50px;
+}
+
+.btn-primary {
+    height: 100%;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: #63b360;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #5ca85a;
+}
+
+.input-group-text {
+    background-color: #343A40;
+    color: white;
+    border-radius: 5px 0 0 5px;
+}
+
+.modal-body .form-control:focus {
+    box-shadow: none;
+    border-color: #3b3b3b;
+    border-radius: 5px;
+}
+
+.form-check-input:checked {
+    background-color: #63b360;
+    border: none;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 2px 2px #80e87c;
+    outline: none;
+    border: none;
+}
+
+.custom-select {
+    border-radius: 5px;
+    margin-top: 0.3rem;
+    background-color: #fff;
+}
+
+.custom-select:focus {
+    box-shadow: none;
+    border-color: #3b3b3b;
+}
+
+.calendar-ico {
+    height: 100%;
+}
+
+.transactions_table {
+    margin: 0 auto;
+    border: solid #b8b8b8 1.5px;
+    border-radius: 3px;
+}
+
+.transactions_table__header {
+    font-weight: bold;
+}
+
+.transactions_row {
+    background-color: #fff;
+    border: solid #efefef 1px;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+}
+
+.transactions_row:not(:last-child) {
+    border-bottom: none;
+}
+
+.transactions_row span {
+    text-align: center;
+}
+
+.transactions_row span:first-child {
+    margin-left: 1rem;
+    width: 2%;
+}
+
+.transactions_row span:last-child {
+    margin-right: 1rem;
+}
+
+.transactions_row span:not(:first-child, :nth-child(3), :nth-child(5), :nth-child(6)) {
+    width: 25%;
+}
+
+.transactions_row span:nth-child(3), span:nth-child(5), span:nth-child(6) {
+    width: 8.25%;
+}
+
+.dayOfWeek {
+    display: block;
+    margin: 1rem 0 0.5rem 1rem;
+}
+
+.transactions_row .amount {
+    border-radius: 4px;
+    padding: 0.1rem 0rem 0.1rem 0;
+    transition: .15s;
+    min-width: fit-content;
+}
+
+.transactions_row .income {
+    background-color: rgba(99, 179, 96, 0.7);
+}
+
+.transactions_row .expense {
+    background-color: rgba(232, 20, 16, 0.6);
+}
+
+.transactions_row .del_btn, .edit_btn {
+    border-radius: 4px;
+    padding: 0.1rem 0rem 0.1rem 0;
+    transition: .15s;
+    min-width: fit-content;
+}
+
+.transactions_row .edit_btn {
+    background-color: rgba(99, 179, 96, 0.7);
+}
+
+.transactions_row .edit_btn:hover {
+    background-color: rgba(73, 137, 71, 0.7);
+    cursor: pointer;
+}
+
+.transactions_row .del_btn {
+    background-color: rgba(232, 20, 16, 0.6);
+}
+
+.transactions_row .del_btn:hover {
+    background-color: rgba(194, 19, 16, 0.6);
+    cursor: pointer;
+}
+
+.pagination {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.sorting-header {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.dropdown-item:active, .sorting-header .active {
+    border-radius: 2px;
+    background-color: #6C757D !important;
+}
+
+.dropdown {
+    width: fit-content;
+    margin-bottom: 0.8%;
+}
+
+.dropdown:not(:last-child) {
+    margin-left: 2%;
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+  
+.dropdown>.dropdown-toggle:active {
+    pointer-events: none;
+}
+
+.dropdown-item:hover {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.category_title {
+    font-size: 50%;
+}
+
+.custom-select {
+    padding: 0;
+}
+
+@media (max-width: 1000px) {
+    .dropdown {
+        margin-bottom: 1.5%;
+    }
+}
+
+@media (max-width: 500px) {
+    .transactions_row .edit_btn {
+        margin-right: 0.5rem;
+    }
+
+    .transactions_row .del_btn {
+        margin-right: 0.5rem;
+    }
+
+    .transactions_row .amount, .transactions_row .del_btn, .edit_btn {
+        min-width: 3rem;
+    }
+
+    .dropdown:not(:last-child) {
+        margin-left: 0;
+    }
+    .sorting-header {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 430px) {
+    .transactions_table {
+        border: solid #b8b8b8 1px;
+    }
+    .dropdown {
+        margin-bottom: 2.5%;
+    }
+}

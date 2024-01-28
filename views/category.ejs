@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./templates/head') %>
+    <link rel="stylesheet" href="/category.css">
+</head>
+<body>
+    <%- include('./templates/nav') %>
+
+    <div class="account-info">
+        <div class="wrapper">
+            <div id="liveAlertPlaceholder"></div>
+            <form id="add-category">
+                <h3 style="text-align: center; margin-top: 5rem;">Category settings</h3>
+                <div class="input-group mb-3" style="margin: auto; margin-top: 2rem">
+                    <input type="text" class="form-control" placeholder="Category title" name="title" required>
+                    <div class="input-group-append" id="button-addon4">
+                        <button class="btn btn-outline-success" type="submit">Add</button>
+                    </div>
+                </div>
+            </form>
+            <form id="categ_settings" class="delete-category" style="text-align: center; margin-top: 1rem;">
+                <div class="input-group mb-3" style="margin: auto; margin-top: 1rem">
+                    <select class="form-select form-control" name="_id" form="categ_settings">
+                        <option selected disabled>Choose category</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-danger" type="submit">Delete</button>
+                    </div>
+                </div>
+            </form>
+            <form id="rename_category">
+                <div class="input-group">
+                    <select class="form-select form-control" name="_id" form="rename_category">
+                        <option selected disabled>Choose category</option>
+                    </select>
+                    <input type="text" class="form-control" placeholder="Change title" name="title" required>
+                    <div class="input-group-rename">
+                        <button class="btn btn-outline-dark" type="submit">Rename</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <% if(session.user) { %>
+        <script src="/js/add_settings_links.js"></script>
+    <% } %>
+
+    <%- include('./templates/footer') %>
+    <script src="/js/settings_category.js"></script>
+
+</body>
+</html>

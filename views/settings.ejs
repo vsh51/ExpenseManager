@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./templates/head') %>
+    <link rel="stylesheet" href="/settings.css">
+</head>
+<body>
+    <%- include('./templates/nav') %>
+
+    <div class="account-info">
+        <div class="wrapper">
+            <h4>Username: <span><%= session.user %></span></h4>
+            <br />
+            <h4>Amount of transactions made: <span><%= count %></span></h4>
+            <p>
+                <h5 class="trans-item">Income transactions: <span><%= totalInc %></span></h5>
+                <h5 class="trans-item">Expense transactions: <span><%= count - totalInc %></span></h5>
+            </p>
+        </div>
+    </div>
+
+    <% if(session.user) { %>
+        <script src="/js/add_settings_links.js"></script>
+    <% } %>
+    
+    <%- include('./templates/footer') %>
+</body>
+</html>

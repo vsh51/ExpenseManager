@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./templates/head') %>
+    <link rel="stylesheet" href="/index_s.css">
+    <link rel="stylesheet" href="/jquery.datetimepicker.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" 
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+    <%- include('./templates/nav') %>
+
+    <div id="liveAlertPlaceholder"></div>
+    <div class="wrapper">
+        <div class="sorting-header">
+            <div class="dropdown dropdown-time">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownPrice" data-mdb-toggle="dropdown" aria-expanded="false">
+                    Time
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownPrice">
+                    <li><a class="dropdown-item" id="bta">Ascending</a></li>
+                    <li><a class="dropdown-item" id="btd">Descending</a></li>
+                </ul>
+            </div>
+            <div class="dropdown dropdown-price">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownAmount" data-mdb-toggle="dropdown" aria-expanded="false">
+                    Amount
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownAmount">
+                    <li><a class="dropdown-item" id="baa">From low to high</a></li>
+                    <li><a class="dropdown-item" id="bad">From high to low</a></li>
+                </ul>
+            </div>
+            <% if (title == "Home") { %>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary btn-sm add-btn" data-bs-toggle="modal" data-bs-target="#mainModal" onclick="create_transaction_view()">
+                        <span>add transaction</span>
+                    </button>
+                </div>
+            <% } %>
+        </div>
+        <div class="transactions_table">
+            <div class="transactions_table__header">
+                <div class="transactions_row">
+                    <span>Id</span>
+                    <span>Category</span>
+                    <span>Amount</span>
+                    <span>time</span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <% for (let i = 0; i < transactions.length; i++) { %>
+                <div class="day">
+                    <span class="dayOfWeek"><%= transactions[i].dayOfWeek %> <%= new Date(transactions[i].transactions[0].datetime).toLocaleString(undefined, {
+                        month: "2-digit", day: "numeric"}) %></span>
+                    <% for (let j = 0; j < transactions[i].transactions.length; j++) {
+                        var trans = transactions[i].transactions[j]; %>
+                        <div class="transactions_row transaction">
+                            <span class="counter"><%= j + 1 %></span>
+                            <span class="category"><%= categories[trans.category] %></span>
+                            <span class="amount <%= trans.type %>">$ <%= trans.amount %></span>
+                            <span class="time"><%= trans.datetime.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: false }) %></span>
+                            <span class="edit_btn" data-bs-toggle="modal" data-bs-target="#mainModal" onclick="edit_transaction_view('<%= trans._id  %>')">edit</span>
+                            <span class="del_btn" onclick="delete_transaction('<%= trans._id  %>')">delete</span>
+                        </div>
+                    <% } %>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="modal-main">
+        <div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="mainModalLabel">Create a record</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="add-form" name="main_modal">
+                        <div class="modal-body">
+                            <div class="amount">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input name="amount" id="amount" type="number" class="form-control"
+                                        aria-label="Amount (to the nearest dollar)" autofocus required>
+                                </div>
+                            </div>
+                            <br />
+                            <label><b>Type:</b></label>
+                            <div class="input-group-append custom-select">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="type" id="income" value="income" checked>
+                                    <label class="form-check-label" for="income">Income</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="type" id="expense" value="expense">
+                                    <label class="form-check-label" for="expense">Expense</label>
+                                </div>
+                            </div>
+                            <br />
+                            <label><b>Category:</b></label>
+                            <div class="input-group-append">
+                                <select class="custom-select" name="category" form="add-form" id="categ_list">
+                                    <option selected disabled class="category_title">Select</option>
+                                    <% for (const [id, title] of Object.entries(categories)) { %>
+                                        <option value="<%= id %>" class="category_title"><%= title %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <br>
+                            <label><b>Time:</b></label>
+                            <div class="input-group-append custom-select">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text calendar-ico"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <input name="datetime" type="text" id="picker" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-modal-submit">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center sticky-bottom">
+            <li class="page-item"><a class="page-link" id="pgl1" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" id="pgl2" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" id="pgl3" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" id="pgl4" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" id="pgl5" href="#">Next</a></li>
+        </ul>
+    </nav>
+
+    <%- include('./templates/footer') %>
+
+    <script src="/js/index_s.js"></script>
+</body>
+</html>
